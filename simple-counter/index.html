@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Hello, React!</title>
+  <style>
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+button {
+  margin: 0.5rem;
+}
+
+.number {
+    color: red;
+}
+
+
+
+      </style>
+</head>
+<body>
+
+  <!-- element where application will be rendered -->
+  <div id="root"></div>
+
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+  <script type="text/babel">
+ class Counter extends React.Component {
+     constructor(props){
+         super(props);
+
+         this.state = {
+             count: props.initialCount || 0
+         };
+
+
+
+     }
+
+handleIncrement = (event) => {
+    if(this.state.count < 20 ){ 
+    this.setState((state, props) => ({
+        count: state.count + 1
+    }));
+    } 
+}
+
+handleDecrement = (event) => {
+    if(this.state.count > 0){
+    this.setState((state, props) => ({
+        count: state.count  - 1,
+        
+         }));
+    }
+}
+
+resetCounter = (event) => {
+    this.setState({
+    count: this.props.initialCount || 0
+    });
+}
+
+      render() {
+          let countClassName = '';
+          if(this.state.count >= 10) {
+              countClassName = 'number'
+          }
+
+          
+let initialCount = this.props.initialCount || 0
+let resetButton = ''
+
+if(this.state.count !== initialCount) {
+resetButton = <button onClick={this.resetCounter}>reset</button>
+}
+
+     return (
+            <div>
+            <button onClick={this.handleDecrement}>Click -</button>
+            <span className={countClassName}>{this.state.count}</span>
+            <button onClick={this.handleIncrement}>Click +</button>
+            <div>
+            {resetButton}
+            </div>
+            </div>
+            );
+      }
+    }
+
+    ReactDOM.render(
+      <Counter  initialCount={2}/>,
+      document.getElementById('root')
+    );
+
+  </script>
+</body>
+</html>
